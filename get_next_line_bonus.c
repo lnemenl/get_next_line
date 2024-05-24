@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkhakimu <rkhakimu@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 15:21:58 by rkhakimu          #+#    #+#             */
-/*   Updated: 2024/05/24 13:54:23 by rkhakimu         ###   ########.fr       */
+/*   Created: 2024/05/24 08:35:05 by rkhakimu          #+#    #+#             */
+/*   Updated: 2024/05/24 14:02:04 by rkhakimu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static int	check_input_gnl(int fd, char *buf)
 {
-	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || fd > MAX_FD || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		buf[0] = '\0';
+		if (fd >= 0)
+			buf[0] = '\0';
 		return (1);
 	}
 	return (0);
 }
 
-static char	*ft_abort_gnl(char *line)
+static char	*ft_abort_gnl(char *line, char *buffer, int err)
 {
-	if (line && *line)
-		return (line);
+	if (err)
+	{
+		buffer[0] = '\0';
+		if (line && *line)
+			return (line);
+	}
 	if (line)
 		free(line);
 	return (NULL);
@@ -76,32 +81,32 @@ static char	*new_str_gnl(char *line, char *buf, char *next_line)
 	}
 	ft_memmove_gnl(buf, next_line + 1, bytes);
 	if (!line)
-		return (ft_abort_gnl(line));
+		return (ft_abort_gnl(line, buf, 0));
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer[MAX_FD][BUFFER_SIZE + 1];
 	char		*line;
 	char		*next_line;
 	int			bytes;
 
 	line = NULL;
-	if (check_input_gnl(fd, buffer))
+	if (check_input_gnl(fd, buffer[fd]))
 		return (NULL);
 	while (1)
 	{
-		if (buffer[0] == '\0')
+		if (buffer[fd][0] == '\0')
 		{
-			bytes = read(fd, buffer, BUFFER_SIZE);
+			bytes = read(fd, buffer[fd], BUFFER_SIZE);
 			if (bytes <= 0)
-				return (ft_abort_gnl(line));
-			buffer[bytes] = '\0';
+				return (ft_abort_gnl(line, buffer[fd], 1));
+			buffer[fd][bytes] = '\0';
 		}
-		next_line = ft_strchr_gnl(buffer, '\n');
+		next_line = ft_strchr_gnl(buffer[fd], '\n');
 		if (next_line)
-			return (new_str_gnl(line, buffer, next_line));
-		line = new_str_gnl(line, buffer, ft_strchr_gnl(buffer, '\0'));
+			return (new_str_gnl(line, buffer[fd], next_line));
+		line = new_str_gnl(line, buffer[fd], ft_strchr_gnl(buffer[fd], '\0'));
 	}
 }

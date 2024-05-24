@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkhakimu <rkhakimu@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 15:08:30 by rkhakimu          #+#    #+#             */
-/*   Updated: 2024/05/23 13:16:37 by rkhakimu         ###   ########.fr       */
+/*   Created: 2024/05/24 08:37:36 by rkhakimu          #+#    #+#             */
+/*   Updated: 2024/05/24 13:54:49 by rkhakimu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_strlen_gnl(char const *s)
 {
@@ -19,7 +19,7 @@ int	ft_strlen_gnl(char const *s)
 	if (!s)
 		return (0);
 	size = 0;
-	while (s[size] != '\0')
+	while (s[size] != 0)
 		size++;
 	return (size);
 }
