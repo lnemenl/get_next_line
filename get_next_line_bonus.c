@@ -6,7 +6,7 @@
 /*   By: rkhakimu <rkhakimu@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 08:35:05 by rkhakimu          #+#    #+#             */
-/*   Updated: 2024/05/24 14:02:04 by rkhakimu         ###   ########.fr       */
+/*   Updated: 2024/05/27 09:51:16 by rkhakimu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static int	check_input_gnl(int fd, char *buf)
 	{
 		if (fd >= 0)
 			buf[0] = '\0';
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
 static char	*ft_abort_gnl(char *line, char *buffer, int err)
@@ -93,7 +93,7 @@ char	*get_next_line(int fd)
 	int			bytes;
 
 	line = NULL;
-	if (check_input_gnl(fd, buffer[fd]))
+	if (!check_input_gnl(fd, buffer[fd]))
 		return (NULL);
 	while (1)
 	{
