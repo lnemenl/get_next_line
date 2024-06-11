@@ -6,7 +6,7 @@
 /*   By: rkhakimu <rkhakimu@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 08:35:05 by rkhakimu          #+#    #+#             */
-/*   Updated: 2024/05/27 09:51:16 by rkhakimu         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:50:29 by rkhakimu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*get_next_line(int fd)
 	static char	buffer[MAX_FD][BUFFER_SIZE + 1];
 	char		*line;
 	char		*next_line;
-	int			bytes;
+	ssize_t		bytes;
 
 	line = NULL;
 	if (!check_input_gnl(fd, buffer[fd]))
