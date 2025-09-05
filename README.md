@@ -1,9 +1,5 @@
 # get_next_line
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/ayogun/42-project-badges/refs/heads/main/covers/cover-get_next_line.png" alt="get_next_line Cover">
-</p>
-<img src="https://img.shields.io/badge/Score-125%2F100-brightgreen" alt="Score Badge">
 
 A function that reads and returns a line from a file descriptor, developed as part of the 42 curriculum.  
 **`get_next_line`** handles reading text files or standard input line by line, even across multiple file descriptors.
